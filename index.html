@@ -19,39 +19,45 @@
         </header>
 
         <main>
-            <section class="menu">
-                <div class="left">
-                    <nav>
-                        <ul>
-                            <li><h2>Character Select</h2></li>
-                        </ul>
-                    </nav>
-                </div>
 
-                <div class="right">
-                    <nav>
-                        <ul>
-                            <li><h2>High Scores</h2></li>
-                        </ul>
-                    </nav>
-                </div>
-            </section>
+            <div class="menu left">
+                <nav>
+                    <ul>
+                        <li>
+                            <h2>Character Select</h2>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="menu right">
+                <nav>
+                    <ul>
+                        <li>
+                            <h2>High Scores</h2>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
 
             <div class="container arena-block">
-                <img src="./assets/images/streetfighterBG.jpeg" alt="">
+                <!-- <img src="./assets/images/streetfighterBG.jpeg" alt=""> -->
                 <div class="arena-screen">
                     <div class="HUD">
-                        <div class="timer-block"><h3 id="timer"></h3></div>
+                        <div class="container timer-block">
+                            <h3 id="timer">00</h3>
+                        </div>
                     </div>
                     <div class="highscores-screen"></div>
                 </div>
             </div>
 
             <div class="container question-block">
-                <div id="" class="question-container">
-                    <p>What goes up and must come down?</p>
+                <div id="" class="questions">
+                    
                 </div>
-                <div id="" class="answers-container">
+                <div id="" class="answers">
                     <ol class="multiplechoice">
                     </ol>
                 </div>
