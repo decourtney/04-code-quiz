@@ -47,8 +47,14 @@ footer {
     text-align: center;
 }
 
-h1 {
+h1,
+h2,
+h3 {
     text-align: center;
+}
+
+h3 {
+    font-size: 4.8rem;
 }
 
 main {}
@@ -56,29 +62,55 @@ main {}
 .menu {
     background-color: cornflowerblue;
     position: relative;
-    max-width: 15%;
+    /* max-width: 15%; */
+    width: 15%;
     top: 0;
+    margin-top: 5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
 }
 
 .container {
     /* BG and border for WIP */
     background-color: blueviolet;
-    border: 2px solid;
+    /* border: 2px solid; */
 
     display: block;
     position: relative;
     margin-left: auto;
     margin-right: auto;
+
+    max-width: 70%;
 }
 
 .arena-block {
-    /* Play with this % when other elements have been added. */
-    max-width: 70%;
+    background-image: url("../images/streetfighterBG.jpeg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 0;
+    padding-top: 25.2%;
 }
 
 .arena-block img {
     max-width: 100%;
     height: auto;
+}
+
+.arena-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
 .timer-block {
@@ -87,19 +119,15 @@ main {}
     border: 2px solid;
     width: 100px;
     height: 100px;
-
-    
-
-    /* max-width: 30px;
-    max-height: 30px; */
+    top: -10px
 }
 
 .question-block {
     padding: 1% 3%;
-    width: 50vw;
+    /* width: 100%; */
 }
 
-.question-container {
+.questions {
     /* BG and border for WIP */
     background-color: blue;
     border: 2px solid;
@@ -115,5 +143,3 @@ main {}
     padding: 5px;
     border: 1px solid;
 }
-
-.answer {}
