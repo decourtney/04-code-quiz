@@ -22,7 +22,21 @@ body {
     font-size: 2rem;
 }
 
-.wrapper {}
+/* Need a custom splash screen */
+/* Uncomment to show loading screen */
+/* #loading-screen {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(192, 192, 192, 0.5);
+    background-image: url("https://i.stack.imgur.com/MnyxU.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+} */
 
 header {
     /* BG and border for WIP */
@@ -49,8 +63,14 @@ footer {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
     text-align: center;
+}
+
+h2,
+h4 {
+    margin-top: 5%;
 }
 
 h3 {
@@ -71,6 +91,7 @@ main {}
 }
 
 .left {
+    display: none;
     float: left;
 }
 
@@ -91,21 +112,7 @@ main {}
     max-width: 70%;
 }
 
-.arena-block {
-    background-image: url("../images/streetfighterBG.jpeg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 0;
-    padding-top: 25.2%;
-}
-
-.arena-block img {
-    max-width: 100%;
-    height: auto;
-}
-
-.arena-screen {
+.screen {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -113,33 +120,96 @@ main {}
     left: 0;
 }
 
+.button {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.arena-block {
+    background-image: url("../images/streetfighterBG.jpeg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    /* height: 0; */
+    padding-top: 25.2%;
+}
+
+.arena {
+    display: none;
+}
+
+#start {
+    background-color: aliceblue;
+
+    position: relative;
+    top: 45%;
+}
+
+.highscores {
+    background-color: chartreuse;
+    border: 2px solid black;
+
+    display: none;
+    position: absolute;
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+table {
+    border: 2px solid black;
+    padding: 2% 0%;
+    width: 100%;
+    text-align: center;
+}
+
+th,
+td {
+    border: 2px solid black;
+    padding: 1% 0;
+    width: 50%
+}
+
+#enter-score{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
 .timer-block {
     /* BG and border for WIP */
     background-color: darkgreen;
     border: 2px solid;
-    width: 100px;
-    height: 100px;
+    /* width: 100px;
+    height: 100px; */
+
     top: -10px
 }
 
 .question-block {
     padding: 1% 3%;
-    /* width: 100%; */
+    width: 100%;
+    height: 40vh;
 }
 
-.questions {
+.question-frame {
+    background-color: cadetblue;
+    min-height: 100%;
+}
+
+#questions,
+#answers, #answers li {
     /* BG and border for WIP */
     background-color: blue;
     border: 2px solid;
 
-    padding: 5px;
+    padding: 2%;
 }
 
-.multiplechoice {
-    position: relative;
+#answers li{
+    margin: 1% 0;
 }
 
-.answer {
-    padding: 5px;
-    border: 1px solid;
-}
+/* Add media query for half and mobile sizes
+    Make combat screen take 100% width
+    Sidebars should slide down next to question-block */
