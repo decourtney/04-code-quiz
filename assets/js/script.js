@@ -30,10 +30,10 @@ function main()
 
 function loadMainMenu()
 {
-    setVisible(".arena", false);
-    setVisible(".left", false);
-    setVisible(".highscores", false);
-    setVisible(".start", true);
+    setDisplay(".arena", false);
+    setVsibility(".left", false);
+    setDisplay(".highscores", false);
+    setDisplay(".start", true);
 
     highScoresButtonEl.children[0].style.display = "block";
     rulesButtonEl.children[0].style.display = "block";
@@ -53,10 +53,10 @@ function loadMainMenu()
 // Need to sort by highest score then by name
 function loadHighScores()
 {
-    setVisible(".start", false);
-    setVisible(".arena", false);
-    setVisible(".left", false);
-    setVisible(".highscores", true);
+    setDisplay(".start", false);
+    setDisplay(".arena", false);
+    setVsibility(".left", false);
+    setDisplay(".highscores", true);
 
     RemoveElement("#scores-list");
     RemoveElement("#answers li");
@@ -79,10 +79,10 @@ function loadHighScores()
 // Add health bars
 function loadArena()
 {
-    setVisible(".start", false);
-    setVisible(".highscores", false);
-    setVisible(".arena", true);
-    setVisible(".left", true);
+    setDisplay(".start", false);
+    setDisplay(".highscores", false);
+    setDisplay(".arena", true);
+    setVsibility(".left", true);
 }
 
 // For now the character select button will start quiz
@@ -90,6 +90,8 @@ function loadArena()
 // Change Main Menu text to quit
 function startQuiz()
 {
+    setVsibility(".left", false);
+
     highScoresButtonEl.children[0].style.display = "none";
     rulesButtonEl.children[0].style.display = "none";
     mainmenuButtonEl.children[0].textContent = "Quit";
@@ -204,7 +206,7 @@ function gameOver()
 
 function countDownTimer()
 {
-    let timeLeft = 10;
+    let timeLeft = 99;
 
     timerCount = setInterval(function ()
     {
@@ -221,7 +223,7 @@ function countDownTimer()
 
 }
 
-// CutnPaste from W3Schools
+// CutnPaste from W3Schools - adjust table value and g2g
 function sortTable()
 {
     var table, rows, switching, i, x, y, shouldSwitch;
