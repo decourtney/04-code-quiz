@@ -26,7 +26,6 @@ function main()
     characterButtonEl.addEventListener("click", startQuiz);
     highScoresButtonEl.addEventListener("click", loadHighScores);
 
-
 }
 
 function loadMainMenu()
@@ -38,10 +37,11 @@ function loadMainMenu()
 
     highScoresButtonEl.children[0].style.display = "block";
     rulesButtonEl.children[0].style.display = "block";
+    mainmenuButtonEl.children[0].textContent = "Main Menu";
 
     clearInterval(timerCount);
-    removeQA();
-    removeForm();
+    RemoveElement("#answers li");
+    RemoveElement("#enter-score table");
     timerEl.textContent = '00';
     isRunning = false;
     nextIndex = 0;
@@ -58,7 +58,8 @@ function loadHighScores()
     setVisible(".left", false);
     setVisible(".highscores", true);
 
-    removeTable();
+    RemoveElement("#scores-list");
+    RemoveElement("#answers li");
 
     for (let i = 0; i < localStorage.length; i++)
     {
@@ -70,6 +71,8 @@ function loadHighScores()
         td1.textContent = score.name;
         td2.textContent = score.score;
     }
+
+    sortTable();
 }
 
 // For now only the character select will appear
@@ -82,54 +85,6 @@ function loadArena()
     setVisible(".left", true);
 }
 
-// Will load characters and start quiz once selected
-function loadCharacterSelect() { }
-
-function gameOver()
-{
-    clearInterval(timerCount);
-    loadHighScores();
-    isRunning = false;
-    pointMulti = 1;
-    
-    let player = {
-        name: '',
-        score: ''
-    }
-
-    let tbl = document.createElement("table");
-    let tr = tbl.insertRow();
-    let td1 = tr.insertCell();
-    let td2 = tr.insertCell();
-
-
-    let form = document.createElement("input");
-    form.setAttribute("id", "playerInitials");
-    form.setAttribute("size", "5");
-    form.setAttribute("text", "submit");
-    form.defaultValue = "AAA";
-
-    let enterScore = document.getElementById("enter-score");
-
-    td1.appendChild(form);
-    td2.textContent = playerScore;
-    enterScore.appendChild(tbl);
-
-    form.onkeydown = function (event)
-    {
-        if (event.key === "Enter")
-        {
-            player.name = form.value;
-            player.score = playerScore;
-            localStorage.setItem(player.name, JSON.stringify(player));
-            loadHighScores();
-            removeForm();
-        }
-    }
-
-    playerScore = 0;
-}
-
 // For now the character select button will start quiz
 // Change to start after character has been selected
 // Change Main Menu text to quit
@@ -137,6 +92,7 @@ function startQuiz()
 {
     highScoresButtonEl.children[0].style.display = "none";
     rulesButtonEl.children[0].style.display = "none";
+    mainmenuButtonEl.children[0].textContent = "Quit";
 
     isRunning = true;
     countDownTimer();
@@ -145,61 +101,31 @@ function startQuiz()
 
 }
 
+// Will load characters and start quiz once selected
+function loadCharacterSelect() { }
+
 function getAnswer(event)
 {
     element = event.target;
 
     if (element.matches(".correct") === true)
     {
-        // correct answer found
+        // correct answer
         playerScore = points * pointMulti;
         pointMulti++;
+        startAttack();
     } else
     {
-        // wrong answer found
+        // wrong answer
         pointMulti = 1;
     }
 
     displayNextQA(nextIndex);
 }
 
-// function ScoreKeeper(value)
-// {
-
-//     if (arguments.length == 0)
-//     {
-//         console.log("nothing passed. should return score");
-//     } else
-//     {
-//         let multiplier = value
-//         console.log(multiplier);
-//         playerScore = points * multiplier;
-//     }
-
-// }
-
-function countDownTimer()
-{
-    let timeLeft = 10;
-
-    timerCount = setInterval(function ()
-    {
-        if (timeLeft > 1)
-        {
-            timerEl.textContent = timeLeft;
-            timeLeft--;
-        } else
-        {
-            timerEl.textContent = '00';
-            gameOver();
-        }
-    }, 1000);
-
-}
-
 function displayNextQA(index)
 {
-    removeQA();
+    RemoveElement("#answers li");
 
     if (index < listQA.length)
     {
@@ -232,26 +158,119 @@ function displayNextQA(index)
     }
 }
 
-function removeQA()
+function gameOver()
 {
-    questionsEL.textContent = '';
-    let list = document.querySelectorAll("#answers li");
-    list.forEach(element =>
+    mainmenuButtonEl.children[0].textContent = "Main Menu";
+    clearInterval(timerCount);
+    loadHighScores();
+    isRunning = false;
+    pointMulti = 1;
+
+    let player = {
+        name: '',
+        score: ''
+    };
+
+    let tbl = document.createElement("table");
+    let tr = tbl.insertRow();
+    let td1 = tr.insertCell();
+    let td2 = tr.insertCell();
+
+    let form = document.createElement("input");
+    form.setAttribute("id", "playerInitials");
+    form.setAttribute("size", "5");
+    form.setAttribute("text", "submit");
+    form.defaultValue = "AAA";
+
+    let enterScore = document.getElementById("enter-score");
+
+    td1.appendChild(form);
+    td2.textContent = playerScore;
+    enterScore.appendChild(tbl);
+
+    form.onkeydown = function (event)
     {
-        element.parentNode.removeChild(element);
-    });
+        if (event.key === "Enter")
+        {
+            player.name = form.value;
+            player.score = playerScore;
+            localStorage.setItem(player.name, JSON.stringify(player));
+            loadHighScores();
+            RemoveElement("#enter-score table");
+            playerScore = 0;
+        }
+    }
 }
 
-function removeForm()
+function countDownTimer()
 {
-    let highscores = document.querySelectorAll("#enter-score table");
-    highscores.forEach(element => { element.parentNode.removeChild(element) });
+    let timeLeft = 10;
+
+    timerCount = setInterval(function ()
+    {
+        if (timeLeft > 1)
+        {
+            timerEl.textContent = timeLeft;
+            timeLeft--;
+        } else
+        {
+            timerEl.textContent = '00';
+            gameOver();
+        }
+    }, 1000);
+
 }
 
-function removeTable()
+// CutnPaste from W3Schools
+function sortTable()
 {
-    let scoresList = document.querySelectorAll("#scores-list");
-    scoresList.forEach(element =>
+    var table, rows, switching, i, x, y, shouldSwitch;
+    table = scoreBoardEl  
+    switching = true;
+    /* Make a loop that will continue until
+    no switching has been done: */
+    while (switching)
+    {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++)
+        {
+            // Start by saying there should be no switching:
+            shouldSwitch = false;
+            /* Get the two elements you want to compare,
+            one from current row and one from the next: */
+            x = rows[i].getElementsByTagName("TD")[1];
+            y = rows[i + 1].getElementsByTagName("TD")[1];
+            // Check if the two rows should switch place:
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase())
+            {
+                // If so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+            }
+        }
+        if (shouldSwitch)
+        {
+            /* If a switch has been marked, make the switch
+            and mark that a switch has been done: */
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+        }
+    }
+}
+
+function RemoveElement(value)
+{
+    if (value === "#answers li")
+    {
+        questionsEL.textContent = '';
+    }
+
+    let el = document.querySelectorAll(value);
+    el.forEach(element =>
     {
         element.parentNode.removeChild(element);
     });
