@@ -80,9 +80,10 @@ h3 {
 main {}
 
 .menu {
+    /* BG and border for WIP */
     background-color: cornflowerblue;
+
     position: relative;
-    /* max-width: 15%; */
     width: 15%;
     top: 0;
     margin-top: 5%;
@@ -138,7 +139,47 @@ main {}
     display: none;
 }
 
+.timer-block {
+    /* BG and border for WIP */
+    background-color: darkgreen;
+    border: 2px solid black;
+
+    top: -10px
+}
+
+canvas{
+    /* background-color: rgba(240, 248, 255. 0.5); */
+    border: 2px solid black;
+
+    position: absolute;
+    top: 0;
+    left: 14.3%;
+    width:auto;
+    height: 100%;
+    
+    
+}
+
+/* .avatar {
+    border: 2px solid black;
+    position: absolute;
+    top: 40%;
+    left: 41%;
+    height: 50%;
+}
+
+#player {
+    content: url(../images/subzero.png);
+}
+
+#opponent {
+    content: url(../images/subzero.png);
+    transform: scaleX(-1);
+    left: 51%;
+} */
+
 #start {
+    /* BG and border for WIP */
     background-color: aliceblue;
 
     position: relative;
@@ -146,6 +187,7 @@ main {}
 }
 
 .highscores {
+    /* BG and border for WIP */
     background-color: chartreuse;
     border: 2px solid black;
 
@@ -157,7 +199,9 @@ main {}
 }
 
 table {
+    /* BG and border for WIP */
     border: 2px solid black;
+
     padding: 2% 0%;
     width: 100%;
     text-align: center;
@@ -165,25 +209,17 @@ table {
 
 th,
 td {
+    /* BG and border for WIP */
     border: 2px solid black;
+
     padding: 1% 0;
     width: 50%
 }
 
-#enter-score{
+#enter-score {
     position: absolute;
     width: 100%;
     bottom: 0;
-}
-
-.timer-block {
-    /* BG and border for WIP */
-    background-color: darkgreen;
-    border: 2px solid;
-    /* width: 100px;
-    height: 100px; */
-
-    top: -10px
 }
 
 .question-block {
@@ -193,12 +229,17 @@ td {
 }
 
 .question-frame {
+    /* BG and border for WIP */
     background-color: cadetblue;
+
     min-height: 100%;
+    border: 2px solid black;
+    border-radius: 10px;
 }
 
 #questions,
-#answers, #answers li {
+#answers,
+#answers li {
     /* BG and border for WIP */
     background-color: blue;
     border: 2px solid;
@@ -206,7 +247,7 @@ td {
     padding: 2%;
 }
 
-#answers li{
+#answers li {
     margin: 1% 0;
 }
 
