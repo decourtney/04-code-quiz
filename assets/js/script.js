@@ -115,11 +115,12 @@ function getAnswer(event)
         // correct answer
         playerScore = points * pointMulti;
         pointMulti++;
-        startAttack();
+        PlayerAttack();
     } else
     {
         // wrong answer
         pointMulti = 1;
+        OpAttack();
     }
 
     displayNextQA(nextIndex);
