@@ -7,12 +7,13 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Ephesis', cursive;
+    font-family: 'Indie Flower', cursive;
     background-color: rgb(0, 0, 0);
     background-image: url(/assets/images/Rect\ Light.svg);
     background-size: 100% 100%;
     color: black;
-    font-size: 2rem;
+    font-size: 2.4rem;
 }
 
 /* Need a custom splash screen */
@@ -52,7 +53,11 @@ footer {
     text-align: center;
 }
 
-h1,
+h1 {
+    text-align: left;
+    padding: 1rem;
+}
+
 h2,
 h3,
 h4,
@@ -60,8 +65,12 @@ h5 {
     text-align: center;
 }
 
+h4{
+    font-size: 10rem;
+}
+
 h3 {
-    font-size: 4.8rem;
+    font-size: 5.4rem;
 }
 
 h5 {
@@ -77,19 +86,30 @@ h5 {
 
 main {}
 
+#logo {
+    display: flex;
+    margin-left: 5%;
+}
+
+#logo img {
+    background-color: blueviolet;
+    content: url("../images/crossedswords.png");
+    width: 50px;
+    border-radius: 50%;
+
+}
+
 .menu {
     /* BG and border for WIP */
     background-color: cornflowerblue;
 
     position: relative;
-    width: 15%;
-    margin-top: 23%;
+    width: 25%;
+    margin: 23% 1%;
 }
 
 .menu ul li {
     border: 2px solid black;
-
-    margin: 10% 0;
 }
 
 .left {
@@ -99,6 +119,37 @@ main {}
 
 .right {
     float: right;
+}
+
+#character-select {
+    background-color: crimson;
+    border: 2px solid black;
+
+    min-width: 100%;
+    min-height: 30vh;
+    margin: 0 5%;
+
+
+
+}
+
+#character-select img {
+
+    width: 20%;
+    padding: 2%;
+
+    display: inline-block;
+
+    transform: scale(1);
+    transition: .3s;
+}
+
+#character-select img:hover {
+    transform: scale(1.2);
+}
+
+#character-select img:active {
+    transform: scale(.7);
 }
 
 .container {
@@ -125,15 +176,24 @@ main {}
 .button {
     cursor: pointer;
     pointer-events: auto;
+    width: fit-content;
+    /* margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 5%; */
+    margin: 5% auto;
 }
 
 .arena-block {
-    background-image: url("../images/streetfighterBG.jpeg");
+    background-image: url("../images/battleback7.png");
     background-size: contain;
     background-repeat: no-repeat;
-    width: 60%;
+    width: 40%;
+    padding-top: 22.5%;
+
+    /* padding-top: 39.4%; */
     /* padding-top: 25.2%; */
-    padding-top: 21.5%;
+    /* padding-top: 21.5%; */
 }
 
 .arena {
@@ -145,7 +205,9 @@ main {}
     background-color: darkgreen;
     border: 2px solid black;
 
-    top: -10px
+    top: -10px;
+    width: 60px;
+    border-radius: 50%;
 }
 
 canvas {
@@ -154,8 +216,8 @@ canvas {
 
     position: absolute;
     top: 0;
-    left: 14.5%;
-    width: auto;
+    left: 0;
+    width: 100%;
     height: 100%;
 
 
@@ -166,7 +228,8 @@ canvas {
     background-color: aliceblue;
 
     position: relative;
-    top: 45%;
+    margin-top: 15%;
+    top: 0;
 }
 
 .highscores {
@@ -181,13 +244,67 @@ canvas {
     margin-right: 25%;
 }
 
+#scores {
+    /* height: 85%; */
+    /* overflow: hidden; */
+}
+
+#scores ol {
+    /* width: 450px; */
+    /* change it to whatever you like */
+    position: relative;
+
+    /* these should be probably already set up by `reset.css` */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#scores ol:before,
+#scores ol:after {
+    text-align: center;
+    display: block;
+    border: 1px solid black;
+    border-bottom: 0;
+    width: 50%;
+}
+
+#scores ol:before {
+    content: 'Player';
+    border-right: 0;
+}
+
+#scores ol:after {
+    content: 'Score';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: 1px;
+}
+
+#scores ol li {
+    text-align: center;
+    width: 50%;
+    float: left;
+    border: 1px solid black;
+    margin-bottom: -1px;
+}
+
+#scores ol li:nth-child(even) {
+    margin-left: -1px;
+}
+
 table {
     /* BG and border for WIP */
     border: 2px solid black;
 
-    padding: 2% 0%;
+    /* padding: 2% 0%; */
     width: 100%;
     text-align: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    border-collapse: collapse;
 }
 
 th,
@@ -195,15 +312,26 @@ td {
     /* BG and border for WIP */
     border: 2px solid black;
 
-    padding: 1% 0;
-    width: 50%
+    /* padding-top: 1%; */
+    width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
 }
 
 #enter-score {
+    background-color: chocolate;
     position: absolute;
     width: 100%;
+    /* height: 4vh; */
     bottom: 0;
+
 }
+
+/* Use in media query for form size  */
+/* #player-initials {
+    height: 3.0rem;
+} */
 
 .question-block {
     margin-left: auto;
@@ -220,6 +348,7 @@ td {
     /* Add box shadow to frame */
     min-height: 50vh;
     border-radius: 10px;
+    font-size: 4.8rem;
 }
 
 #questions,
@@ -229,7 +358,7 @@ td {
     background-color: blue;
     border: 2px solid;
 
-    padding: 2%;
+    padding: 1%;
     margin: 5px 0;
 }
 

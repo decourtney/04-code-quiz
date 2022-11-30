@@ -7,24 +7,39 @@ let startButtonEl = document.getElementById("start");
 let highScoresButtonEl = document.getElementById("highscores");
 let rulesButtonEl = document.getElementById("rules");
 let mainmenuButtonEl = document.getElementById("mainmenu");
-let characterButtonEl = document.getElementById("character");
-let scoreBoardEl = document.getElementById("scores");
+let readyButtonEl = document.getElementById("ready");
+let characterSelectEl = document.getElementById("character-select");
+let scoreBoardEl = document.getElementById("scores").children[0];
 
 const listQA = createQAList();
 const points = 100;
-let isRunning = false;
 var timerCount;
 let nextIndex = 0;
 let playerScore = 0;
 let pointMulti = 1;
+let changeScreenDelay = 1000;
 
 
 function main()
 {
     mainmenuButtonEl.addEventListener("click", loadMainMenu);
     startButtonEl.addEventListener("click", loadArena);
-    characterButtonEl.addEventListener("click", startQuiz);
+    readyButtonEl.addEventListener("click", startQuiz);
     highScoresButtonEl.addEventListener("click", loadHighScores);
+
+    LoadCharacterIcons()
+
+}
+
+function LoadCharacterIcons()
+{
+
+    let el = document.createElement("img");
+    el.src = "./assets/images/ninjagirl-icon.png"
+    el.setAttribute("alt", "Ninja Girl Icon");
+    characterSelectEl.appendChild(el);
+
+    el.addEventListener("click", function () { el.setAttribute("style", "box-shadow: 0 5px 15px rgba(145, 92, 182, 1);")});
 
 }
 
@@ -43,7 +58,6 @@ function loadMainMenu()
     RemoveElement("#answers li");
     RemoveElement("#enter-score table");
     timerEl.textContent = '00';
-    isRunning = false;
     nextIndex = 0;
     playerScore = 0;
     pointMulti = 1;
@@ -58,21 +72,32 @@ function loadHighScores()
     setVsibility(".left", false);
     setDisplay(".highscores", true);
 
-    RemoveElement("#scores-list");
+    RemoveElement("#scores li");
     RemoveElement("#answers li");
 
-    for (let i = 0; i < localStorage.length; i++)
+    let sortedScores = SortScores();
+    console.log(sortedScores);
+
+    for (let i = 0; i < sortedScores.length && i < 10; i++)
     {
-        let score = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        let tr = scoreBoardEl.insertRow();
-        tr.setAttribute("id", "scores-list")
-        let td1 = tr.insertCell();
-        let td2 = tr.insertCell();
-        td1.textContent = score.name;
-        td2.textContent = score.score;
+        let liName = document.createElement("li");
+        let liScore = document.createElement("li");
+        liName.textContent = sortedScores[i].name;
+        liScore.textContent = sortedScores[i].score;
+        scoreBoardEl.appendChild(liName);
+        scoreBoardEl.appendChild(liScore);
+
+
+        // let score = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        // let tr = scoreBoardEl.insertRow();
+        // tr.setAttribute("id", "scores-list")
+        // let td1 = tr.insertCell();
+        // let td2 = tr.insertCell();
+        // td1.textContent = score.name;
+        // td2.textContent = score.score;
     }
 
-    sortTable();
+    // sortTable();
 }
 
 // For now only the character select will appear
@@ -83,6 +108,8 @@ function loadArena()
     setDisplay(".highscores", false);
     setDisplay(".arena", true);
     setVsibility(".left", true);
+
+
 }
 
 // For now the character select button will start quiz
@@ -96,7 +123,9 @@ function startQuiz()
     rulesButtonEl.children[0].style.display = "none";
     mainmenuButtonEl.children[0].textContent = "Quit";
 
-    isRunning = true;
+    // Add Fight text popup
+
+    // Use delay to allow Fight text to animate
     countDownTimer();
     displayNextQA(nextIndex);
 
@@ -157,16 +186,15 @@ function displayNextQA(index)
         nextIndex++;
     } else
     {
-        gameOver();
+        setTimeout(function () { gameOver() }, changeScreenDelay);
+        clearInterval(timerCount);
     }
 }
 
 function gameOver()
 {
     mainmenuButtonEl.children[0].textContent = "Main Menu";
-    clearInterval(timerCount);
     loadHighScores();
-    isRunning = false;
     pointMulti = 1;
 
     let player = {
@@ -180,9 +208,10 @@ function gameOver()
     let td2 = tr.insertCell();
 
     let form = document.createElement("input");
-    form.setAttribute("id", "playerInitials");
-    form.setAttribute("size", "5");
-    form.setAttribute("text", "submit");
+    form.setAttribute("id", "player-initials");
+    form.setAttribute("size", "3");
+    form.setAttribute("type", "text");
+    form.setAttribute("maxlength", "3");
     form.defaultValue = "AAA";
 
     let enterScore = document.getElementById("enter-score");
@@ -195,7 +224,7 @@ function gameOver()
     {
         if (event.key === "Enter")
         {
-            player.name = form.value;
+            player.name = form.value.toUpperCase();
             player.score = playerScore;
             localStorage.setItem(player.name, JSON.stringify(player));
             loadHighScores();
@@ -211,58 +240,30 @@ function countDownTimer()
 
     timerCount = setInterval(function ()
     {
-        if (timeLeft > 1)
+        if (timeLeft > 0)
         {
             timerEl.textContent = timeLeft;
             timeLeft--;
         } else
         {
             timerEl.textContent = '00';
-            gameOver();
+            clearInterval(timerCount);
+            setTimeout(function () { gameOver() }, changeScreenDelay);
         }
     }, 1000);
 
 }
 
-// CutnPaste from W3Schools - adjust table value and g2g
-function sortTable()
+function SortScores()
 {
-    var table, rows, switching, i, x, y, shouldSwitch;
-    table = scoreBoardEl  
-    switching = true;
-    /* Make a loop that will continue until
-    no switching has been done: */
-    while (switching)
+    let scores = []
+
+    for (let i = 0; i < localStorage.length; i++)
     {
-        // Start by saying: no switching is done:
-        switching = false;
-        rows = table.rows;
-        /* Loop through all table rows (except the
-        first, which contains table headers): */
-        for (i = 1; i < (rows.length - 1); i++)
-        {
-            // Start by saying there should be no switching:
-            shouldSwitch = false;
-            /* Get the two elements you want to compare,
-            one from current row and one from the next: */
-            x = rows[i].getElementsByTagName("TD")[1];
-            y = rows[i + 1].getElementsByTagName("TD")[1];
-            // Check if the two rows should switch place:
-            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase())
-            {
-                // If so, mark as a switch and break the loop:
-                shouldSwitch = true;
-                break;
-            }
-        }
-        if (shouldSwitch)
-        {
-            /* If a switch has been marked, make the switch
-            and mark that a switch has been done: */
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-        }
+        scores[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
+
     }
+    return scores.sort(function (a, b) { return b.score - a.score });
 }
 
 function RemoveElement(value)
@@ -277,6 +278,16 @@ function RemoveElement(value)
     {
         element.parentNode.removeChild(element);
     });
+}
+
+function setDisplay(selector, display)
+{
+    document.querySelector(selector).style.display = display ? 'block' : 'none';
+}
+
+function setVsibility(selector, visible)
+{
+    document.querySelector(selector).style.visibility = visible ? 'visible' : 'hidden';
 }
 
 function createQAList()

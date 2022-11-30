@@ -47,7 +47,7 @@ function PlayerAttack()
     playerAnimation = playerAttackAnim;
 
     playerWidth = 524;
-    playerHeight = 500;
+    playerHeight = 565;
     playerScaledWidth = playerScale * playerWidth;
     playerScaledHeight = playerScale * playerHeight;
     playerCurrentLoopIndex = 0;

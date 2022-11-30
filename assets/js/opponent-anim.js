@@ -14,7 +14,7 @@ opDeathAnim.src = "./assets/images/purpninja-death.png";
 let opAnimation = opIdleAnim;
 opAnimation.onload = function () { OpInit(); };
 
-let opCanvas = document.getElementById("opponent-canvas");
+let opCanvas = document.getElementById("op-canvas");
 let opCtx = opCanvas.getContext('2d');
 let isOpLoopOnce = false;
 opCtx.scale(-1, 1);
@@ -25,7 +25,7 @@ let opHeight = 439;
 let opScaledWidth = opScale * opWidth;
 let opScaledHeight = opScale * opHeight;
 
-const cycleLoop = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+const opCycleLoop = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 let opCurrentLoopIndex = 0;
 let opFrameCount = 0;
 
@@ -100,9 +100,9 @@ function OpAnimator()
     }
     opFrameCount = 0;
     opCtx.clearRect(0, 0, opCanvas.width * -1, opCanvas.height);
-    OpDrawFrame(cycleLoop[opCurrentLoopIndex], 0, 210, 42);
+    OpDrawFrame(opCycleLoop[opCurrentLoopIndex], 0, 210, 42);
     opCurrentLoopIndex++;
-    if (opCurrentLoopIndex >= cycleLoop.length)
+    if (opCurrentLoopIndex >= opCycleLoop.length)
     {
         opCurrentLoopIndex = 0;
         if (isOpLoopOnce)
