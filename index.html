@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/reset.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ephesis&family=Indie+Flower&display=swap" rel="stylesheet">
     <title>Coding Kombat Quiz</title>
 </head>
 
@@ -16,20 +19,21 @@
 
 
         <header>
-            <h1>Coding Kombat</h1>
-            <h1>Quiz</h1>
+            <div id="logo"><img><h1>Coding Kombat Quiz</h1></div>
+            
         </header>
 
         <main>
 
             <nav class="menu left">
-                <div class="left-list">
+                <div>
                     <ul>
                         <li>
-                            <h2 id="character" class="button">Ready</h2>
+                            <h2 id="ready" class="button">Ready</h2>
                         </li>
                     </ul>
                 </div>
+                <div id="character-select"></div>
             </nav>
 
             <nav class="menu right">
@@ -51,12 +55,17 @@
                     <h4 id="start" class="button">Start</h4>
                 </div>
                 <div class="highscores screen">
-                    <table id="scores">
-                        <tr>
-                            <th>Player</th>
-                            <th>Score</th>
-                        </tr>
-                    </table>
+                    <div id="scores">
+                        <ol></ol>
+                    </div>
+                    <!-- <div id="scores">
+                        <table>
+                            <tr>
+                                <th>Player</th>
+                                <th>Score</th>
+                            </tr>
+                        </table>
+                    </div> -->
                     <div id="enter-score"></div>
                 </div>
 
@@ -64,7 +73,8 @@
                     <div class="container timer-block">
                         <h3 id="timer">00</h3>
                     </div>
-                    <canvas></canvas>
+                    <canvas id="player-canvas"></canvas>
+                    <canvas id="op-canvas"></canvas>
                 </div>
             </div>
 
@@ -85,7 +95,8 @@
     </div>
     <script src="./assets/js/loading.js"></script>
     <script src="./assets/js/script.js"></script>
-    <script src="./assets/js/animations.js"></script>
+    <script src="./assets/js/player-anim.js"></script>
+    <script src="./assets/js/opponent-anim.js"></script>
 </body>
 
 </html>
