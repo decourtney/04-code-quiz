@@ -1,3 +1,11 @@
+:root {
+    --main-color: #893A99;
+    --lightgreen: #6F993A;
+    --darkgreen: #314D0E;
+    --lightpurple: #D26EE5;
+    --darkpurple: #43154D;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -9,48 +17,32 @@ html {
 body {
     font-family: 'Ephesis', cursive;
     font-family: 'Indie Flower', cursive;
-    background-color: rgb(0, 0, 0);
-    background-image: url(/assets/images/Rect\ Light.svg);
+    background-color: var(--main-color);
     background-size: 100% 100%;
     color: black;
     font-size: 2.4rem;
 }
 
-/* Need a custom splash screen */
-/* Uncomment to show loading screen */
-/* #loading-screen {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(192, 192, 192, 0.5);
-    background-image: url("https://i.stack.imgur.com/MnyxU.gif");
-    background-repeat: no-repeat;
-    background-position: center;
-} */
-
 header {
-    /* BG and border for WIP */
-    background-color: brown;
-    border: 2px solid;
-
+    background-color: var(--lightgreen);
     height: 5%;
+    margin-bottom: 1%;
+    border: 3px var(--darkpurple);
+    border-style: none none ridge;
+    box-shadow: 10px 10px 10px var(--darkpurple);
 }
 
 footer {
-    /* BG and border for WIP */
-    background-color: brown;
-    border: 2px solid black;
-
-    position: relative;
-    margin-top: auto;
+    background-color: var(--lightgreen);
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    height: 20px;
-    color: white;
+    height: 25px;
+    color: rgb(0, 0, 0);
     text-align: center;
+    border: 3px var(--darkpurple);
+    border-style: ridge none none;
+    box-shadow: 10px 0px 10px var(--darkpurple);
 }
 
 h1 {
@@ -63,14 +55,16 @@ h3,
 h4,
 h5 {
     text-align: center;
+    padding-top: 5px;
 }
 
-h4{
-    font-size: 10rem;
-}
-
-h3 {
+h3,
+h2 {
     font-size: 5.4rem;
+}
+
+h4 {
+    font-size: 10rem;
 }
 
 h5 {
@@ -81,10 +75,28 @@ h5 {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-main {}
+.hover:hover {
+    transform: scale(1.05);
+}
+
+.hover:active {
+    transform: scale(.99);
+}
+
+.button {
+    background-color: var(--darkgreen);
+    position: relative;
+    margin: 15% auto 1% auto;
+    top: 0;
+    width: fit-content;
+    border: 5px solid var(--darkpurple);
+    border-radius: 50%;
+    box-shadow: 5px 5px 20px var(--darkpurple);
+    cursor: pointer;
+    pointer-events: auto;
+}
 
 #logo {
     display: flex;
@@ -92,24 +104,15 @@ main {}
 }
 
 #logo img {
-    background-color: blueviolet;
     content: url("../images/crossedswords.png");
     width: 50px;
     border-radius: 50%;
-
 }
 
 .menu {
-    /* BG and border for WIP */
-    background-color: cornflowerblue;
-
     position: relative;
     width: 25%;
     margin: 23% 1%;
-}
-
-.menu ul li {
-    border: 2px solid black;
 }
 
 .left {
@@ -121,25 +124,26 @@ main {}
     float: right;
 }
 
-#character-select {
-    background-color: crimson;
-    border: 2px solid black;
+#ready {
+    margin: 15% auto 1% auto;
+}
 
-    min-width: 100%;
+#character-select {
+    background-color: var(--lightpurple);
+    border: 10px solid var(--darkpurple);
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px var(--darkpurple);
+
+    min-width: 90%;
     min-height: 30vh;
     margin: 0 5%;
-
-
-
 }
 
 #character-select img {
 
+    display: inline-block;
     width: 20%;
     padding: 2%;
-
-    display: inline-block;
-
     transform: scale(1);
     transition: .3s;
 }
@@ -152,16 +156,45 @@ main {}
     transform: scale(.7);
 }
 
-.container {
-    /* BG and border for WIP */
-    background-color: blueviolet;
-    /* border: 2px solid; */
+.button-block {
+    display: flex;
+    justify-content: center;
+    padding: 5% 0;
+}
 
+#outer-button {
+    position: absolute;
+    width: 25%;
+    z-index: -1;
+}
+
+#inner-button {
+    cursor: pointer;
+    pointer-events: auto;
+    width: 25%;
+}
+
+#mainmenu #outer-button {
+    content: url(../images/greenbutton-outer.png);
+}
+
+#mainmenu #inner-button {
+    content: url(../images/greenbutton-inner.png);
+}
+
+#highscores #outer-button {
+    content: url(../images/yellowbutton-outer.png);
+}
+
+#highscores #inner-button {
+    content: url(../images/yellowbutton-inner.png);
+}
+
+.container {
     display: block;
     position: relative;
     margin-left: auto;
     margin-right: auto;
-
     max-width: 70%;
 }
 
@@ -173,27 +206,12 @@ main {}
     left: 0;
 }
 
-.button {
-    cursor: pointer;
-    pointer-events: auto;
-    width: fit-content;
-    /* margin-left: auto;
-    margin-right: auto;
-    margin-top: 5%;
-    margin-bottom: 5%; */
-    margin: 5% auto;
-}
-
 .arena-block {
     background-image: url("../images/battleback7.png");
     background-size: contain;
     background-repeat: no-repeat;
     width: 40%;
     padding-top: 22.5%;
-
-    /* padding-top: 39.4%; */
-    /* padding-top: 25.2%; */
-    /* padding-top: 21.5%; */
 }
 
 .arena {
@@ -201,118 +219,88 @@ main {}
 }
 
 .timer-block {
-    /* BG and border for WIP */
-    background-color: darkgreen;
+    background-color: var(--lightpurple);
     border: 2px solid black;
-
     top: -10px;
     width: 60px;
     border-radius: 50%;
 }
 
 canvas {
-    /* background-color: rgba(240, 248, 255. 0.5); */
-    border: 2px solid black;
-
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-
-
 }
 
 #start {
-    /* BG and border for WIP */
-    background-color: aliceblue;
-
-    position: relative;
-    margin-top: 15%;
-    top: 0;
+    margin: 15% auto 0 auto;
 }
 
 .highscores {
-    /* BG and border for WIP */
-    background-color: chartreuse;
-    border: 2px solid black;
-
+    background-color: rgba(210, 110, 229, .8);
     display: none;
     position: absolute;
     width: 50%;
     margin-left: 25%;
     margin-right: 25%;
+    border-radius: 10px;
+    color: var(--darkgreen);
+    font-size: 3.4rem;
+    font-weight: 900;
 }
 
-#scores {
-    /* height: 85%; */
-    /* overflow: hidden; */
-}
-
-#scores ol {
-    /* width: 450px; */
-    /* change it to whatever you like */
+#scores ul {
     position: relative;
-
-    /* these should be probably already set up by `reset.css` */
-    list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: 5px 0;
     width: 100%;
+    color: var(--darkpurple)
+
 }
 
-#scores ol:before,
-#scores ol:after {
+#scores ul:before,
+#scores ul:after {
     text-align: center;
     display: block;
-    border: 1px solid black;
     border-bottom: 0;
     width: 50%;
 }
 
-#scores ol:before {
+#scores ul:before {
     content: 'Player';
     border-right: 0;
 }
 
-#scores ol:after {
+#scores ul:after {
     content: 'Score';
     position: absolute;
-    top: 0;
+    top: 5px;
     left: 50%;
     margin-left: 1px;
 }
 
-#scores ol li {
+#scores ul li {
     text-align: center;
+    color: var(--darkgreen);
     width: 50%;
     float: left;
-    border: 1px solid black;
-    margin-bottom: -1px;
-}
-
-#scores ol li:nth-child(even) {
-    margin-left: -1px;
+    margin-top: 10px;
 }
 
 table {
-    /* BG and border for WIP */
-    border: 2px solid black;
-
-    /* padding: 2% 0%; */
     width: 100%;
     text-align: center;
     font-size: 2.4rem;
     font-weight: 700;
     border-collapse: collapse;
+    border: 2px var(--darkpurple);
+    border-style: solid none none;
 }
 
 th,
 td {
-    /* BG and border for WIP */
-    border: 2px solid black;
-
-    /* padding-top: 1%; */
     width: 50%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -320,48 +308,102 @@ td {
 }
 
 #enter-score {
-    background-color: chocolate;
     position: absolute;
     width: 100%;
-    /* height: 4vh; */
     bottom: 0;
-
 }
 
-/* Use in media query for form size  */
-/* #player-initials {
-    height: 3.0rem;
-} */
-
 .question-block {
+    background-color: var(--lightpurple);
+    border: 10px solid var(--darkpurple);
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px var(--darkpurple);
     margin-left: auto;
     margin-right: auto;
     padding: 1% 1%;
     width: 50%;
-}
-
-.question-frame {
-    /* BG and border for WIP */
-    background-color: cadetblue;
-    border: 2px solid black;
-
-    /* Add box shadow to frame */
-    min-height: 50vh;
+    min-height: 30vh;
     border-radius: 10px;
     font-size: 4.8rem;
+    color: var(--darkgreen);
+    font-weight: 700;
+    
 }
 
 #questions,
 #answers,
 #answers li {
-    /* BG and border for WIP */
-    background-color: blue;
-    border: 2px solid;
+    width: auto;
+    margin: 5px;
+}
 
-    padding: 1%;
-    margin: 5px 0;
+#answers li {
+    background-color: var(--darkpurple);
+    border: 2px black;
+    border-style: solid none solid;
+    border-radius: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .arena-block {
+        width: 100%;
+        padding-top: 39.5%;
+    }
+
+    .question-block {
+        max-width: 100%;
+        width: 100%;
+        font-size: 2.0rem;
+    }
+
+    .menu {
+        margin-top: 100%;
+    }
+
+    #outer-button {
+        width: 80%;
+    }
+
+    #inner-button {
+        width: 80%;
+    }
+
+    #character-select {
+        position: relative;
+        margin-top: 5%;
+        width: 50vw;
+        min-height: 15vh;
+        left: 20%;
+    }
+
+    #character-select img {
+        width: 30%;
+    }
+
+    #ready {
+        margin: 1% 0 10% 100%;
+    }
+
+    h2, h4{
+        font-size: 6rem;
+    }
+
+    #scores{
+        font-size: 1.5rem;
+    }
+
+    #scores ul li{
+        padding: 0;
+        margin: 0;
+    }
+
 }
 
 /* Add media query for half and mobile sizes
     Make combat screen take 100% width
     Sidebars should slide down next to question-block */
+
+/* Use in media query for form size  */
+/* #player-initials {
+    height: 3.0rem;
+} */

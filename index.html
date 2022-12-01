@@ -19,8 +19,10 @@
 
 
         <header>
-            <div id="logo"><img><h1>Coding Kombat Quiz</h1></div>
-            
+            <div id="logo"><img>
+                <h1>Coding Kombat Quiz</h1>
+            </div>
+
         </header>
 
         <main>
@@ -29,7 +31,7 @@
                 <div>
                     <ul>
                         <li>
-                            <h2 id="ready" class="button">Ready</h2>
+                            <h2 id="ready" class="button hover">Ready</h2>
                         </li>
                     </ul>
                 </div>
@@ -38,34 +40,27 @@
 
             <nav class="menu right">
                 <ul>
-                    <li id="mainmenu" class="button">
-                        <h2>Main Menu</h2>
+                    <li id="mainmenu">
+                        <div class="button-block">
+                            <img id="outer-button" ><img id="inner-button" class="hover">
+                        </div>
                     </li>
-                    <li id="highscores" class="button">
-                        <h2>High Scores</h2>
-                    </li>
-                    <li id="rules" class="button">
-                        <h2>Rules</h2>
+                    <li id="highscores">
+                        <div class="button-block">
+                            <img id="outer-button"><img id="inner-button" class="hover">
+                        </div>
                     </li>
                 </ul>
             </nav>
 
             <div class="container arena-block">
                 <div class="start screen">
-                    <h4 id="start" class="button">Start</h4>
+                    <h4 id="start" class="button hover">Start</h4>
                 </div>
                 <div class="highscores screen">
                     <div id="scores">
-                        <ol></ol>
+                        <ul></ul>
                     </div>
-                    <!-- <div id="scores">
-                        <table>
-                            <tr>
-                                <th>Player</th>
-                                <th>Score</th>
-                            </tr>
-                        </table>
-                    </div> -->
                     <div id="enter-score"></div>
                 </div>
 
@@ -79,21 +74,21 @@
             </div>
 
             <div class="container question-block">
-                <div class="question-frame">
-                    <div id="questions"></div>
-                    <ol id="answers">
-                    </ol>
-                </div>
+                <!-- <div class="question-frame"> -->
+                <div id="questions"></div>
+                <ol id="answers">
+                </ol>
+                <!-- </div> -->
             </div>
 
         </main>
 
         <footer>
-            <h5>BIG FOOTER</h5>
+            <h5>Built by Donovan Courtney</h5>
         </footer>
 
     </div>
-    <script src="./assets/js/loading.js"></script>
+
     <script src="./assets/js/script.js"></script>
     <script src="./assets/js/player-anim.js"></script>
     <script src="./assets/js/opponent-anim.js"></script>

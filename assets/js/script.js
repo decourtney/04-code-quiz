@@ -4,9 +4,8 @@ let timerEl = document.getElementById("timer");
 let questionsEL = document.getElementById("questions");
 let answersEl = document.getElementById("answers");
 let startButtonEl = document.getElementById("start");
-let highScoresButtonEl = document.getElementById("highscores");
-let rulesButtonEl = document.getElementById("rules");
-let mainmenuButtonEl = document.getElementById("mainmenu");
+let mainmenuButtonEl = document.getElementById("mainmenu").children[0].children[1];
+let highScoresButtonEl = document.getElementById("highscores").children[0].children[1];
 let readyButtonEl = document.getElementById("ready");
 let characterSelectEl = document.getElementById("character-select");
 let scoreBoardEl = document.getElementById("scores").children[0];
@@ -19,7 +18,6 @@ let playerScore = 0;
 let pointMulti = 1;
 let changeScreenDelay = 1000;
 
-
 function main()
 {
     mainmenuButtonEl.addEventListener("click", loadMainMenu);
@@ -28,19 +26,16 @@ function main()
     highScoresButtonEl.addEventListener("click", loadHighScores);
 
     LoadCharacterIcons()
-
 }
 
 function LoadCharacterIcons()
 {
-
     let el = document.createElement("img");
     el.src = "./assets/images/ninjagirl-icon.png"
     el.setAttribute("alt", "Ninja Girl Icon");
     characterSelectEl.appendChild(el);
 
     el.addEventListener("click", function () { el.setAttribute("style", "box-shadow: 0 5px 15px rgba(145, 92, 182, 1);")});
-
 }
 
 function loadMainMenu()
@@ -50,9 +45,7 @@ function loadMainMenu()
     setDisplay(".highscores", false);
     setDisplay(".start", true);
 
-    highScoresButtonEl.children[0].style.display = "block";
-    rulesButtonEl.children[0].style.display = "block";
-    mainmenuButtonEl.children[0].textContent = "Main Menu";
+    highScoresButtonEl.parentElement.style.display = "flex";
 
     clearInterval(timerCount);
     RemoveElement("#answers li");
@@ -61,10 +54,8 @@ function loadMainMenu()
     nextIndex = 0;
     playerScore = 0;
     pointMulti = 1;
-
 }
 
-// Need to sort by highest score then by name
 function loadHighScores()
 {
     setDisplay(".start", false);
@@ -86,54 +77,26 @@ function loadHighScores()
         liScore.textContent = sortedScores[i].score;
         scoreBoardEl.appendChild(liName);
         scoreBoardEl.appendChild(liScore);
-
-
-        // let score = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        // let tr = scoreBoardEl.insertRow();
-        // tr.setAttribute("id", "scores-list")
-        // let td1 = tr.insertCell();
-        // let td2 = tr.insertCell();
-        // td1.textContent = score.name;
-        // td2.textContent = score.score;
     }
-
-    // sortTable();
 }
 
-// For now only the character select will appear
-// Add health bars
 function loadArena()
 {
     setDisplay(".start", false);
     setDisplay(".highscores", false);
     setDisplay(".arena", true);
     setVsibility(".left", true);
-
-
 }
 
-// For now the character select button will start quiz
-// Change to start after character has been selected
-// Change Main Menu text to quit
 function startQuiz()
 {
     setVsibility(".left", false);
 
-    highScoresButtonEl.children[0].style.display = "none";
-    rulesButtonEl.children[0].style.display = "none";
-    mainmenuButtonEl.children[0].textContent = "Quit";
+    highScoresButtonEl.parentElement.style.display = "none";
 
-    // Add Fight text popup
-
-    // Use delay to allow Fight text to animate
     countDownTimer();
     displayNextQA(nextIndex);
-
-
 }
-
-// Will load characters and start quiz once selected
-function loadCharacterSelect() { }
 
 function getAnswer(event)
 {
@@ -172,11 +135,11 @@ function displayNextQA(index)
             if (nextQA[i].split("", 1).toString() === "a")
             {
                 li.textContent = nextQA[i].slice(1, nextQA[i].length);
-                li.setAttribute("class", "button correct");
+                li.setAttribute("class", "button correct hover");
             } else
             {
                 li.textContent = nextQA[i];
-                li.setAttribute("class", "button wrong");
+                li.setAttribute("class", "button wrong hover");
             }
 
             li.addEventListener("click", getAnswer);
@@ -186,14 +149,13 @@ function displayNextQA(index)
         nextIndex++;
     } else
     {
-        setTimeout(function () { gameOver() }, changeScreenDelay);
         clearInterval(timerCount);
+        setTimeout(function () { gameOver() }, changeScreenDelay);
     }
 }
 
 function gameOver()
 {
-    mainmenuButtonEl.children[0].textContent = "Main Menu";
     loadHighScores();
     pointMulti = 1;
 
@@ -236,7 +198,7 @@ function gameOver()
 
 function countDownTimer()
 {
-    let timeLeft = 99;
+    let timeLeft = 30;
 
     timerCount = setInterval(function ()
     {
@@ -251,7 +213,6 @@ function countDownTimer()
             setTimeout(function () { gameOver() }, changeScreenDelay);
         }
     }, 1000);
-
 }
 
 function SortScores()
