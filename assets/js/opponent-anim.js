@@ -1,6 +1,8 @@
 /* This script was adapted from Martin Himmel's 'Animating Sprite Sheets with Javascript' blog
     @ https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3 */
 
+/* This is almost identical to the player-anim script - Adjusted variable and function names to avoid issues
+    The only difference is the canvas is flipped on the X-axis so the character spritesheet faces the other direction */
 
 let opIdleAnim = new Image();
 let opAttackAnim = new Image();

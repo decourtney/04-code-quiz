@@ -29,7 +29,7 @@ header {
     margin-bottom: 1%;
     border: 3px var(--darkpurple);
     border-style: none none ridge;
-    box-shadow: 10px 10px 10px var(--darkpurple);
+    box-shadow: 0px 10px 10px var(--darkpurple);
 }
 
 footer {
@@ -42,7 +42,7 @@ footer {
     text-align: center;
     border: 3px var(--darkpurple);
     border-style: ridge none none;
-    box-shadow: 10px 0px 10px var(--darkpurple);
+    box-shadow: 0px 0px 10px var(--darkpurple);
 }
 
 h1 {
@@ -71,6 +71,7 @@ h5 {
     font-size: 1.4rem;
 }
 
+/* --- Global Selectors --- */
 .flex-wrapper {
     display: flex;
     min-height: 100vh;
@@ -91,13 +92,30 @@ h5 {
     margin: 15% auto 1% auto;
     top: 0;
     width: fit-content;
-    border: 5px solid var(--darkpurple);
+    border: 3px solid var(--darkpurple);
     border-radius: 50%;
     box-shadow: 5px 5px 20px var(--darkpurple);
     cursor: pointer;
     pointer-events: auto;
 }
 
+.container {
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70%;
+}
+
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/* Header Logo */
 #logo {
     display: flex;
     margin-left: 5%;
@@ -109,19 +127,16 @@ h5 {
     border-radius: 50%;
 }
 
+/* --- Left/Right Sidebar Menu --- */
 .menu {
     position: relative;
     width: 25%;
     margin: 23% 1%;
 }
-
+/* Left Menu */
 .left {
     visibility: hidden;
     float: left;
-}
-
-.right {
-    float: right;
 }
 
 #ready {
@@ -154,6 +169,11 @@ h5 {
 
 #character-select img:active {
     transform: scale(.7);
+}
+
+/* Right Menu */
+.right {
+    float: right;
 }
 
 .button-block {
@@ -190,22 +210,7 @@ h5 {
     content: url(../images/yellowbutton-inner.png);
 }
 
-.container {
-    display: block;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 70%;
-}
-
-.screen {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
+/* --- Main Game Window --- */
 .arena-block {
     background-image: url("../images/battleback7.png");
     background-size: contain;
@@ -214,31 +219,13 @@ h5 {
     padding-top: 22.5%;
 }
 
-.arena {
-    display: none;
-}
-
-.timer-block {
-    background-color: var(--lightpurple);
-    border: 2px solid black;
-    top: -10px;
-    width: 60px;
-    border-radius: 50%;
-}
-
-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
+/* Start Button */
 #start {
     margin: 15% auto 0 auto;
 }
 
-.highscores {
+/* Highscore Screen */
+.highscores-frame {
     background-color: rgba(210, 110, 229, .8);
     display: none;
     position: absolute;
@@ -251,6 +238,7 @@ canvas {
     font-weight: 900;
 }
 
+/* Score List */
 #scores ul {
     position: relative;
     margin: 0;
@@ -289,13 +277,14 @@ canvas {
     margin-top: 10px;
 }
 
+/* Name Entry */
 table {
     width: 100%;
     text-align: center;
     font-size: 2.4rem;
     font-weight: 700;
     border-collapse: collapse;
-    border: 2px var(--darkpurple);
+    border: 3px var(--darkpurple);
     border-style: solid none none;
 }
 
@@ -313,47 +302,60 @@ td {
     bottom: 0;
 }
 
+/* Combat Screen */
+.arena-frame {
+    display: none;
+}
+
+.timer-block {
+    background-color: var(--lightpurple);
+    border: 2px solid black;
+    top: -10px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+/* Rendering Canvas */
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Question/Answer Window --- */
 .question-block {
     background-color: var(--lightpurple);
-    border: 10px solid var(--darkpurple);
-    border-radius: 10px;
-    box-shadow: 10px 10px 10px var(--darkpurple);
-    margin-left: auto;
-    margin-right: auto;
     padding: 1% 1%;
     width: 50%;
     min-height: 30vh;
     border-radius: 10px;
     font-size: 4.8rem;
     color: var(--darkgreen);
-    font-weight: 700;
-    
+    font-weight: 700;  
+    border: 10px solid var(--darkpurple);
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px var(--darkpurple);  
 }
 
 #questions,
 #answers,
 #answers li {
-    width: auto;
     margin: 5px;
 }
 
 #answers li {
-    background-color: var(--darkpurple);
-    border: 2px black;
-    border-style: solid none solid;
-    border-radius: 0;
+    background-color:aqua;
+    border-radius: 10px;
+    padding-left: 5%;
+    width: 100%;
 }
 
 @media screen and (max-width: 600px) {
-    .arena-block {
-        width: 100%;
-        padding-top: 39.5%;
-    }
-
-    .question-block {
-        max-width: 100%;
-        width: 100%;
-        font-size: 2.0rem;
+    
+    h2, h4{
+        font-size: 6rem;
     }
 
     .menu {
@@ -383,9 +385,16 @@ td {
     #ready {
         margin: 1% 0 10% 100%;
     }
+ 
+    .arena-block {
+        width: 100%;
+        padding-top: 39.5%;
+    }
 
-    h2, h4{
-        font-size: 6rem;
+    .question-block {
+        max-width: 100%;
+        width: 100%;
+        font-size: 2.0rem;
     }
 
     #scores{
@@ -398,12 +407,3 @@ td {
     }
 
 }
-
-/* Add media query for half and mobile sizes
-    Make combat screen take 100% width
-    Sidebars should slide down next to question-block */
-
-/* Use in media query for form size  */
-/* #player-initials {
-    height: 3.0rem;
-} */
