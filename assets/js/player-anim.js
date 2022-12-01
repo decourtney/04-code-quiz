@@ -1,35 +1,48 @@
 /* This script was adapted from Martin Himmel's 'Animating Sprite Sheets with Javascript' blog
     @ https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3 */
 
+/* TBH Applying characters and animations sounded easier in my head and I didn't bother looking for APIs.
+    I had more planned but getting the animations to their current state was tedious and delicate.
+    And I'm not sure if this is done correctly or just hacked to pieces in a functional manner */
 
+// Used a spritesheet for each animation
 let playerIdleAnim = new Image();
 let playerAttackAnim = new Image();
 let playerHitAnim = new Image();
 let playerDeathAnim = new Image();
 
+// Assign the spritesheet
 playerIdleAnim.src = "./assets/images/ninjagirl-idle.png";
 playerAttackAnim.src = "./assets/images/ninjagirl-attack.png";
 playerHitAnim.src = "./assets/images/ninjagirl-hit.png";
 playerDeathAnim.src = "./assets/images/ninjagirl-death.png";
+
+// Set default/starting animation - Idle and initialize
 let playerAnimation = playerIdleAnim;
 playerAnimation.onload = function () { PlayerInit(); };
 
+// Get the html canvas
 let playerCanvas = document.getElementById("player-canvas")
 let playerCtx = playerCanvas.getContext('2d');
+
+// When true - tells the animator to execute one iteration through a spritesheet
 let isPlayerLoopOnce = false;
 
+// default settings for spritesheets. These settings work with the starting idle animation
 const playerScale = .2;
 let playerWidth = 290;
 let playerHeight = 500;
 let playerScaledWidth = playerScale * playerWidth;
 let playerScaledHeight = playerScale * playerHeight;
 
+// Each animation contains 10 frames
 const playerCycleLoop = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 let playerCurrentLoopIndex = 0;
 let playerFrameCount = 0;
 
-function PlayerIdle()
-{
+// Each animation has individual W-H settings according to the spritesheet
+// Each call to an animation sets the animation to use, its settings, and reset Frame count variables
+function PlayerIdle() {
     playerAnimation = playerIdleAnim;
 
     playerWidth = 290;
@@ -42,8 +55,7 @@ function PlayerIdle()
     PlayerInit();
 }
 
-function PlayerAttack()
-{
+function PlayerAttack() {
     playerAnimation = playerAttackAnim;
 
     playerWidth = 524;
@@ -57,8 +69,7 @@ function PlayerAttack()
     setTimeout(function () { OpHit() }, 300);
 }
 
-function PlayerHit()
-{
+function PlayerHit() {
     playerAnimation = playerHitAnim;
 
     playerWidth = 578;
@@ -70,8 +81,7 @@ function PlayerHit()
     isPlayerLoopOnce = true;
 }
 
-function PlayerDeath()
-{
+function PlayerDeath() {
     playerAnimation = playerDeathAnim;
 
     playerWidth = 578;
@@ -83,30 +93,33 @@ function PlayerDeath()
     isPlayerLoopOnce = true;
 }
 
-function PlayerDrawFrame(frameX, frameY, playerCanvasX, playerCanvasY)
-{
+// This function displays the newly rendered sprite to the canvas
+function PlayerDrawFrame(frameX, frameY, playerCanvasX, playerCanvasY) {
     playerCtx.drawImage(playerAnimation,
         frameX * playerWidth, frameY * playerHeight, playerWidth, playerHeight,
         playerCanvasX, playerCanvasY, playerScaledWidth, playerScaledHeight);
 }
 
-function PlayerAnimator()
-{
+function PlayerAnimator() {
+    // When called the animator will continue to loop through the current animation per frame rendering. Which varies by refresh rates
     playerFrameCount++;
-    if (playerFrameCount < 10)
-    {
+    // Control how fast the animation plays by only rendering frames every 10th refresh
+    if (playerFrameCount < 10) {
         window.requestAnimationFrame(PlayerAnimator);
         return;
     }
     playerFrameCount = 0;
+
+    // The canvas needs to be cleared of any render before drawing next
     playerCtx.clearRect(0, 0, playerCanvas.width, playerCanvas.height);
     PlayerDrawFrame(playerCycleLoop[playerCurrentLoopIndex], 0, 75, 30);
+
     playerCurrentLoopIndex++;
-    if (playerCurrentLoopIndex >= playerCycleLoop.length)
-    {
+    // Once the last animation frame is reached rest loop index
+    if (playerCurrentLoopIndex >= playerCycleLoop.length) {
         playerCurrentLoopIndex = 0;
-        if (isPlayerLoopOnce)
-        {
+        // If only one animation iteration is needed then set animation back to idle and return
+        if (isPlayerLoopOnce) {
             PlayerIdle();
             return;
         }
@@ -115,7 +128,6 @@ function PlayerAnimator()
     window.requestAnimationFrame(PlayerAnimator);
 }
 
-function PlayerInit()
-{
+function PlayerInit() {
     window.requestAnimationFrame(PlayerAnimator);
 }
