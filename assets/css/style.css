@@ -133,6 +133,7 @@ h5 {
     width: 25%;
     margin: 23% 1%;
 }
+
 /* Left Menu */
 .left {
     visibility: hidden;
@@ -140,18 +141,17 @@ h5 {
 }
 
 #ready {
-    margin: 15% auto 1% auto;
+    margin: 0 auto 2% auto;
 }
 
 #character-select {
     background-color: var(--lightpurple);
-    border: 10px solid var(--darkpurple);
-    border-radius: 10px;
-    box-shadow: 10px 10px 10px var(--darkpurple);
-
     min-width: 90%;
     min-height: 30vh;
     margin: 0 5%;
+    border: 10px solid var(--darkpurple);
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px var(--darkpurple);
 }
 
 #character-select img {
@@ -244,8 +244,7 @@ h5 {
     margin: 0;
     padding: 5px 0;
     width: 100%;
-    color: var(--darkpurple)
-
+    color: var(--darkpurple);
 }
 
 #scores ul:before,
@@ -274,7 +273,7 @@ h5 {
     color: var(--darkgreen);
     width: 50%;
     float: left;
-    margin-top: 10px;
+    font-size: 2.5rem;
 }
 
 /* Name Entry */
@@ -333,28 +332,30 @@ canvas {
     border-radius: 10px;
     font-size: 4.8rem;
     color: var(--darkgreen);
-    font-weight: 700;  
+    font-weight: 700;
     border: 10px solid var(--darkpurple);
     border-radius: 10px;
-    box-shadow: 10px 10px 10px var(--darkpurple);  
+    box-shadow: 10px 10px 10px var(--darkpurple);
 }
 
 #questions,
 #answers,
 #answers li {
     margin: 5px;
+    font-size: 2.5rem;
 }
 
 #answers li {
-    background-color:aqua;
+    background-color: aqua;
     border-radius: 10px;
     padding-left: 5%;
     width: 100%;
 }
 
 @media screen and (max-width: 600px) {
-    
-    h2, h4{
+
+    h2,
+    h4 {
         font-size: 6rem;
     }
 
@@ -372,7 +373,6 @@ canvas {
 
     #character-select {
         position: relative;
-        margin-top: 5%;
         width: 50vw;
         min-height: 15vh;
         left: 20%;
@@ -383,9 +383,9 @@ canvas {
     }
 
     #ready {
-        margin: 1% 0 10% 100%;
+        margin: 0 0 10% 100%;
     }
- 
+
     .arena-block {
         width: 100%;
         padding-top: 39.5%;
@@ -397,13 +397,12 @@ canvas {
         font-size: 2.0rem;
     }
 
-    #scores{
-        font-size: 1.5rem;
+    #scores {
+        font-size: 2.0rem;
     }
 
     #scores ul li{
-        padding: 0;
-        margin: 0;
+        font-size: 1.5rem;
     }
 
 }

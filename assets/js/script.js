@@ -10,13 +10,25 @@ let characterSelectEl = document.getElementById("character-select");
 let scoreBoardEl = document.getElementById("scores").children[0];
 
 // Global Variables
-const listQA = createQAList();
+const listQA = CreateArrayOfQA();
 const points = 100;
-var timerCount;
+let timerCount;
+let timeLeft;
 let nextIndex = 0;
 let playerScore = 0;
 let pointMulti = 1;
 let changeScreenDelay = 1000;
+let maxScoreListSize = 10;
+let mobileDisplay = window.matchMedia("(max-width: 1440px)");
+
+// Check screen size on load and adjust list size of high scores
+function CheckDisplay(value){
+    if(value.matches){
+        maxScoreListSize = 5;
+    } else {
+        maxScoreListSize = 10;
+    }
+}
 
 function main() {
     // Probably unnecessary to have these event listeners in main() but it just feels better
@@ -24,6 +36,8 @@ function main() {
     startButtonEl.addEventListener("click", loadArena);
     readyButtonEl.addEventListener("click", startQuiz);
     highScoresButtonEl.addEventListener("click", loadHighScores);
+    CheckDisplay(mobileDisplay);
+    mobileDisplay.addEventListener(CheckDisplay);
 
     // Only one character to load for now
     LoadCharacterIcons()
@@ -74,7 +88,7 @@ function loadHighScores() {
     // Get an array of the scores sorted by points
     let sortedScores = SortScores();
     // Iterate array and append up to the top 10
-    for (let i = 0; i < sortedScores.length && i < 10; i++) {
+    for (let i = 0; i < sortedScores.length && i < maxScoreListSize; i++) {
         let liName = document.createElement("li");
         let liScore = document.createElement("li");
         liName.textContent = sortedScores[i].name;
@@ -147,7 +161,7 @@ function getAnswer(event) {
     element = event.target;
 
     // Each correctly selected subsequent answer increases point multiplier and Character hits the opponent
-    // Incorrectly selected answers reset point multiplier and Opponent hits the character
+    // Incorrectly selected answers reset point multiplier, reduces time on the clock, and Opponent hits the character
     if (element.matches(".correct") === true) {
         // correct answer
         playerScore = points * pointMulti;
@@ -156,6 +170,7 @@ function getAnswer(event) {
     } else {
         // incorrect answer
         pointMulti = 1;
+        timeLeft += -3;
         OpAttack();
     }
 
@@ -211,7 +226,7 @@ function gameOver() {
 
 // Timer function keeps calling itself until cleared
 function countDownTimer() {
-    let timeLeft = 99;
+    timeLeft = 30;
 
     timerCount = setInterval(function () {
         if (timeLeft > 0) {
@@ -262,7 +277,7 @@ main();
 
 // Array of Q and A's each semicolon separated (question;answer;anwer;...)
 // Correct answers will start with the string 'a'
-function createQAList() {
+function CreateArrayOfQA() {
     return [
         "What goes up must come down?;aYes;No;Maybe;I don\'t know",
         "Whats inside-out?;Inside;aOutside"
