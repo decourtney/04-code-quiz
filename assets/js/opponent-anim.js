@@ -14,7 +14,7 @@ opAttackAnim.src = "./assets/images/purpninja-attack.png";
 opHitAnim.src = "./assets/images/purpninja-hit.png";
 opDeathAnim.src = "./assets/images/purpninja-death.png";
 let opAnimation = opIdleAnim;
-opAnimation.onload = function () { OpInit(); };
+opAnimation.onload = function () { opInit(); };
 
 let opCanvas = document.getElementById("op-canvas");
 let opCtx = opCanvas.getContext('2d');
@@ -31,7 +31,7 @@ const opCycleLoop = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 let opCurrentLoopIndex = 0;
 let opFrameCount = 0;
 
-function OpIdle()
+function opIdle()
 {
     opAnimation = opIdleAnim;
 
@@ -42,10 +42,10 @@ function OpIdle()
     opCurrentLoopIndex = 0;
     opFrameCount = 0
     isOpLoopOnce = false;
-    OpInit();
+    opInit();
 }
 
-function OpAttack()
+function opAttack()
 {
     opAnimation = opAttackAnim;
 
@@ -56,10 +56,10 @@ function OpAttack()
     opCurrentLoopIndex = 0;
     opFrameCount = 0
     isOpLoopOnce = true;
-    setTimeout(function () { PlayerHit() }, 300);
+    setTimeout(function () { playerHit() }, 300);
 }
 
-function OpHit()
+function opHit()
 {
     opAnimation = opHitAnim;
 
@@ -72,7 +72,7 @@ function OpHit()
     isOpLoopOnce = true;
 }
 
-function OpDeath()
+function opDeath()
 {
     opAnimation = opDeathAnim;
 
@@ -85,39 +85,39 @@ function OpDeath()
     isOpLoopOnce = true;
 }
 
-function OpDrawFrame(frameX, frameY, canvasX, canvasY)
+function opDrawFrame(frameX, frameY, canvasX, canvasY)
 {
     opCtx.drawImage(opAnimation,
         frameX * opWidth, frameY * opHeight, opWidth, opHeight,
         canvasX * -1, canvasY, opScaledWidth, opScaledHeight);
 }
 
-function OpAnimator()
+function opAnimator()
 {
     opFrameCount++;
     if (opFrameCount < 10)
     {
-        window.requestAnimationFrame(OpAnimator);
+        window.requestAnimationFrame(opAnimator);
         return;
     }
     opFrameCount = 0;
     opCtx.clearRect(0, 0, opCanvas.width * -1, opCanvas.height);
-    OpDrawFrame(opCycleLoop[opCurrentLoopIndex], 0, 210, 42);
+    opDrawFrame(opCycleLoop[opCurrentLoopIndex], 0, 210, 42);
     opCurrentLoopIndex++;
     if (opCurrentLoopIndex >= opCycleLoop.length)
     {
         opCurrentLoopIndex = 0;
         if (isOpLoopOnce)
         {
-            OpIdle();
+            opIdle();
             return;
         }
     }
 
-    window.requestAnimationFrame(OpAnimator);
+    window.requestAnimationFrame(opAnimator);
 }
 
-function OpInit()
+function opInit()
 {
-    window.requestAnimationFrame(OpAnimator);
+    window.requestAnimationFrame(opAnimator);
 }

@@ -10,7 +10,7 @@ let characterSelectEl = document.getElementById("character-select");
 let scoreBoardEl = document.getElementById("scores").children[0];
 
 // Global Variables
-const listQA = CreateArrayOfQA();
+const listQA = createArrayOfQA();
 const points = 100;
 let timerCount;
 let timeLeft;
@@ -22,7 +22,7 @@ let maxScoreListSize = 10;
 let mobileDisplay = window.matchMedia("(max-width: 1440px)");
 
 // Check screen size on load and adjust list size of high scores
-function CheckDisplay(value){
+function checkDisplay(value){
     if(value.matches){
         maxScoreListSize = 5;
     } else {
@@ -36,8 +36,8 @@ function main() {
     startButtonEl.addEventListener("click", loadArena);
     readyButtonEl.addEventListener("click", startQuiz);
     highScoresButtonEl.addEventListener("click", loadHighScores);
-    CheckDisplay(mobileDisplay);
-    mobileDisplay.addEventListener(CheckDisplay);
+    checkDisplay(mobileDisplay);
+    mobileDisplay.addEventListener("resize", checkDisplay);
 
     // Only one character to load for now
     LoadCharacterIcons()
@@ -66,8 +66,8 @@ function loadMainMenu() {
 
     // If the player returns to Main Menu during quiz then reset game info and clear QA window
     clearInterval(timerCount);
-    RemoveElement("#answers li");
-    RemoveElement("#enter-score table");
+    removeElement("#answers li");
+    removeElement("#enter-score table");
     timerEl.textContent = '00';
     nextIndex = 0;
     playerScore = 0;
@@ -82,11 +82,11 @@ function loadHighScores() {
     setDisplay(".highscores-frame", true);
 
     // Clear any score display present before populating scores list
-    RemoveElement("#scores li");
-    RemoveElement("#answers li");
+    removeElement("#scores li");
+    removeElement("#answers li");
 
     // Get an array of the scores sorted by points
-    let sortedScores = SortScores();
+    let sortedScores = sortScores();
     // Iterate array and append up to the top 10
     for (let i = 0; i < sortedScores.length && i < maxScoreListSize; i++) {
         let liName = document.createElement("li");
@@ -120,7 +120,7 @@ function startQuiz() {
 
 function displayNextQA(index) {
     // Clear previously displayed Q and A
-    RemoveElement("#answers li");
+    removeElement("#answers li");
 
     // Check where we are in the list of QandA's
     if (index < listQA.length) {
@@ -135,7 +135,7 @@ function displayNextQA(index) {
             let li = document.createElement("li");
 
             // Correct answers start with a lowercase 'a' - Split and check first character of answer and apply appropriate class attr
-            if (nextQA[i].split("", 1).toString() === "a") {
+            if (nextQA[i].split("", 1).toString() === "~") {
                 li.textContent = nextQA[i].slice(1, nextQA[i].length);
                 li.setAttribute("class", "button correct hover");
             } else {
@@ -164,14 +164,14 @@ function getAnswer(event) {
     // Incorrectly selected answers reset point multiplier, reduces time on the clock, and Opponent hits the character
     if (element.matches(".correct") === true) {
         // correct answer
-        playerScore = points * pointMulti;
+        playerScore += points * pointMulti;
         pointMulti++;
-        PlayerAttack();
+        playerAttack();
     } else {
         // incorrect answer
         pointMulti = 1;
         timeLeft += -3;
-        OpAttack();
+        opAttack();
     }
 
     // Selection made, consequences reaped - Display next QandA
@@ -218,7 +218,7 @@ function gameOver() {
             player.score = playerScore;
             localStorage.setItem(player.name, JSON.stringify(player));
             loadHighScores();
-            RemoveElement("#enter-score table");
+            removeElement("#enter-score table");
             playerScore = 0;
         }
     }
@@ -226,7 +226,7 @@ function gameOver() {
 
 // Timer function keeps calling itself until cleared
 function countDownTimer() {
-    timeLeft = 30;
+    timeLeft = 99;
 
     timerCount = setInterval(function () {
         if (timeLeft > 0) {
@@ -242,7 +242,7 @@ function countDownTimer() {
 }
 
 // Sort and Return the locallystored scores
-function SortScores() {
+function sortScores() {
     let scores = []
 
     for (let i = 0; i < localStorage.length; i++) {
@@ -253,7 +253,7 @@ function SortScores() {
 }
 
 // Pass element id name to have it removed
-function RemoveElement(value) {
+function removeElement(value) {
     if (value === "#answers li") {
         questionsEL.textContent = '';
     }
@@ -277,9 +277,17 @@ main();
 
 // Array of Q and A's each semicolon separated (question;answer;anwer;...)
 // Correct answers will start with the string 'a'
-function CreateArrayOfQA() {
+function createArrayOfQA() {
     return [
-        "What goes up must come down?;aYes;No;Maybe;I don\'t know",
-        "Whats inside-out?;Inside;aOutside"
+        "Inside which HTML element do we put the JavaScript?;<js>;<scripting>;~<script>;<javascript>",
+        "What is the correct JavaScript syntax to change the content of the HTML element below?\n\n<p id=\"demo\">This is a demonstration.</p>;~document.getElementById(\"demo\").innerHTML = \"Hello World!\";#demo.innerHTML = \"Hello World!\";document.getElement(\"p\").innerHTML = \"Hello World!\";document.getElementByName(\"p\").innerHTML = \"Hello World!\"",
+        "Where is the correct place to insert a JavaScript?;The <body> section;~Both the <head> section and the <body> section are correct;The <head> section",
+        "What is the correct syntax for referring to an external script called \"xxx.js\"?;<script href=\"xxx.js\">;~<script src=\"xxx.js\">;<script name=\"xxx.js\">",
+        "The external JavaScript file must contain the <script> tag;True;~False",
+        "How do you write \"Hello World\" in an alert box?;~alert(\"Hello World\");msg(\"Hello World\");msgBox(\"Hello World\");alertBox(\"Hello World\")",
+        "How you create a function in JavaScript?;~function myFunction();function = myFunction();function:myFunction()",
+        "How do you call a function named \"myFunction\"?;call myFunction();call function myFunction();~myFunction()",
+        "How do you write an IF statement in JavaScript?;if i==5 then;if i = 5 then;~if (i == 5);if i = 5",
+        "How do you write an IF statement for executing some code if \"i\" is NOT equal to 5?;if i <> 5;if i=! 5 then;~if (i != 5);if (i <> 5)"
     ]
 }
