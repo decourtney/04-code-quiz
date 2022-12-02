@@ -226,7 +226,7 @@ function gameOver() {
 
 // Timer function keeps calling itself until cleared
 function countDownTimer() {
-    timeLeft = 99;
+    timeLeft = 30;
 
     timerCount = setInterval(function () {
         if (timeLeft > 0) {
