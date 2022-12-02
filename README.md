@@ -1,16 +1,14 @@
 # Coding Kombat Quiz
 
 ## Description
-The password generator is intended to provide users with an easy method of generating randomly created passwords based on input. This project utilized existing HTML and CSS code with a functional JS button. My task was to write the remaining JS code to prompt the user for input, validate the input, and utilize the input to generate a password. This task was to help strengthen and build on the basics of JavaScript and programming logic.
+The purpose of this project was the create a timed quiz and use Javascript to control adding, removing, and modifying html elements.
+I attempted to add a bit more visual appeal and interaction than just presenting questions. I included an html canvas and scripted some spritesheets to animate based on the users selected answers. However, due to time contraints the combat portion of the quiz is purely aesthetics and hold no bearing on the users score.
 
-The generation process should request input from the user with a series of prompts. Since a user can input any value or lack of value the code must validate and accept only appropriate input for the requested input. The code should also consider that a user may cancel or [ESC] the whole process and display an appropriate message. Upon successfully gathering the required input the generated password will be written to the site in the provided text box.
-
-
-Deployed Project: 
+Deployed Project: https://decourtney.github.io/coding-kombat-quiz/
 
 <br>
     <div>  
-        <img src="./assets/images/codingKombatQuizSS.png" target="_blank" alt="Screenshot of Coding Kombat Quiz" style="max-width: 300px; display: block;" />  
+        <img src="./assets/images/coding-kombat-quiz.png" target="_blank" alt="Screenshot of Coding Kombat Quiz" style="max-width: 300px; display: block;" />  
     </div>
 <br>
 
@@ -20,11 +18,7 @@ N/A
 
 ## Usage
 
-The site contains a single red Generate Password button and a readonly text box were the resulting password is displayed. A user clicks the button and is then presented with a series of prompts asking for certain inputs. At any point the user can hit their ESC key or click a cancel button to exit the generation process. 
-
-The first prompt asks for a number within a displayed range and will continue to display error pop-ups until the user enters an acceptable number. 
-
-Next the user is presented with a series of 4 prompts asking the user what type of characters are to be used in the password generation. The prompts are looking for a 'y' or 'n' input. The generator will accept any input that begins with either character until each prompt has an acceptable answer. The generator also requires the user to select at least one character type.
+The site loads to a Start screen and a main menu and high scores button - similar to retro games. Once the user clicks Start a character select screen and Ready button appear. The character select is non-functional. Clicking Ready will begin the quiz - once an answered is selected another question will display and continue to do so until the user runs out of time or questions. Upon Game Over the high scores screen will appear and the user will be able to enter their initials. Scores are saved to local storage.
 
 ## Credits
 

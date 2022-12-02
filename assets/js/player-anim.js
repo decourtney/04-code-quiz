@@ -19,7 +19,7 @@ playerDeathAnim.src = "./assets/images/ninjagirl-death.png";
 
 // Set default/starting animation - Idle and initialize
 let playerAnimation = playerIdleAnim;
-playerAnimation.onload = function () { PlayerInit(); };
+playerAnimation.onload = function () { playerInit(); };
 
 // Get the html canvas
 let playerCanvas = document.getElementById("player-canvas")
@@ -42,7 +42,7 @@ let playerFrameCount = 0;
 
 // Each animation has individual W-H settings according to the spritesheet
 // Each call to an animation sets the animation to use, its settings, and reset Frame count variables
-function PlayerIdle() {
+function playerIdle() {
     playerAnimation = playerIdleAnim;
 
     playerWidth = 290;
@@ -52,10 +52,10 @@ function PlayerIdle() {
     playerCurrentLoopIndex = 0;
     playerFrameCount = 0
     isPlayerLoopOnce = false;
-    PlayerInit();
+    playerInit();
 }
 
-function PlayerAttack() {
+function playerAttack() {
     playerAnimation = playerAttackAnim;
 
     playerWidth = 524;
@@ -66,10 +66,10 @@ function PlayerAttack() {
     playerFrameCount = 0
     isPlayerLoopOnce = true;
 
-    setTimeout(function () { OpHit() }, 300);
+    setTimeout(function () { opHit() }, 300);
 }
 
-function PlayerHit() {
+function playerHit() {
     playerAnimation = playerHitAnim;
 
     playerWidth = 578;
@@ -81,7 +81,7 @@ function PlayerHit() {
     isPlayerLoopOnce = true;
 }
 
-function PlayerDeath() {
+function playerDeath() {
     playerAnimation = playerDeathAnim;
 
     playerWidth = 578;
@@ -94,25 +94,25 @@ function PlayerDeath() {
 }
 
 // This function displays the newly rendered sprite to the canvas
-function PlayerDrawFrame(frameX, frameY, playerCanvasX, playerCanvasY) {
+function playerDrawFrame(frameX, frameY, playerCanvasX, playerCanvasY) {
     playerCtx.drawImage(playerAnimation,
         frameX * playerWidth, frameY * playerHeight, playerWidth, playerHeight,
         playerCanvasX, playerCanvasY, playerScaledWidth, playerScaledHeight);
 }
 
-function PlayerAnimator() {
+function playerAnimator() {
     // When called the animator will continue to loop through the current animation per frame rendering. Which varies by refresh rates
     playerFrameCount++;
     // Control how fast the animation plays by only rendering frames every 10th refresh
     if (playerFrameCount < 10) {
-        window.requestAnimationFrame(PlayerAnimator);
+        window.requestAnimationFrame(playerAnimator);
         return;
     }
     playerFrameCount = 0;
 
     // The canvas needs to be cleared of any render before drawing next
     playerCtx.clearRect(0, 0, playerCanvas.width, playerCanvas.height);
-    PlayerDrawFrame(playerCycleLoop[playerCurrentLoopIndex], 0, 75, 30);
+    playerDrawFrame(playerCycleLoop[playerCurrentLoopIndex], 0, 75, 30);
 
     playerCurrentLoopIndex++;
     // Once the last animation frame is reached rest loop index
@@ -120,14 +120,14 @@ function PlayerAnimator() {
         playerCurrentLoopIndex = 0;
         // If only one animation iteration is needed then set animation back to idle and return
         if (isPlayerLoopOnce) {
-            PlayerIdle();
+            playerIdle();
             return;
         }
     }
 
-    window.requestAnimationFrame(PlayerAnimator);
+    window.requestAnimationFrame(playerAnimator);
 }
 
-function PlayerInit() {
-    window.requestAnimationFrame(PlayerAnimator);
+function playerInit() {
+    window.requestAnimationFrame(playerAnimator);
 }

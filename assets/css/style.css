@@ -15,7 +15,6 @@ html {
 }
 
 body {
-    font-family: 'Ephesis', cursive;
     font-family: 'Indie Flower', cursive;
     background-color: var(--main-color);
     background-size: 100% 100%;
@@ -325,12 +324,11 @@ canvas {
 
 /* --- Question/Answer Window --- */
 .question-block {
+    font-family: 'Roboto Mono', monospace;
     background-color: var(--lightpurple);
     padding: 1% 1%;
     width: 50%;
     min-height: 30vh;
-    border-radius: 10px;
-    font-size: 4.8rem;
     color: var(--darkgreen);
     font-weight: 700;
     border: 10px solid var(--darkpurple);
@@ -343,12 +341,13 @@ canvas {
 #answers li {
     margin: 5px;
     font-size: 2.5rem;
+    overflow-wrap: break-word;
 }
 
 #answers li {
     background-color: aqua;
     border-radius: 10px;
-    padding-left: 5%;
+    padding: 5px 20px;
     width: 100%;
 }
 
@@ -359,8 +358,20 @@ canvas {
         font-size: 6rem;
     }
 
-    .menu {
-        margin-top: 100%;
+    .left {
+        display: inline;
+        position:absolute;
+        bottom: 0;
+        left: 0;
+        margin-bottom: 10%;
+    }
+
+    .right {
+        position: absolute;
+        right:0;
+        top:0;
+        width: 15%;
+        margin: 15% 0;
     }
 
     #outer-button {
@@ -397,11 +408,16 @@ canvas {
         font-size: 2.0rem;
     }
 
+    #questions,
+    #answers li {
+        font-size: 2.0rem;
+    }
+
     #scores {
         font-size: 2.0rem;
     }
 
-    #scores ul li{
+    #scores ul li {
         font-size: 1.5rem;
     }
 
